@@ -1,34 +1,25 @@
-import { useState, useEffect } from "react"
+import React from 'react'
+import { useState } from 'react';
+import Search from './components/Search'
 
-const Card = ({ title }) => {
-  const [count, setCount] = useState(0);
-  const [hasLiked, setHasLiked] = useState(false);
-
-  useEffect(() => {
-    console.log(`${title} has been liked: ${hasLiked}`)
-  }, [hasLiked, title]);
+const App = () => {
+  const [search, setSearch] = useState('I am batman');
 
   return (
-    <div className='card' onClick={() => setCount(count + 1)}>
-      <h2>{ title } <br/> { count || null }</h2>
+    <main>
+      <div className='pattern'/>
 
-      <button onClick={() => setHasLiked(!hasLiked)}>
-        {hasLiked ? '❤️' : '🤍'}
-      </button>
-    </div>
-  )
-}
-
-function App() {
-
-  return (
-    <>
-      <div className='card-container'>
-        <Card title="Elementals" />
-        <Card title="Frozen" />
-        <Card title="Vivo" />
+      <div className='wrapper'>
+        <header>
+          <h1 className='text-4xl font-bold'>
+            Find <span className='text-gradient'>Movies</span> You'll Enjoy Without The Hassle
+          </h1>
+        </header>
       </div>
-    </>
+
+      <Search search={search} setSearch={setSearch} />
+      
+    </main>
   )
 }
 
