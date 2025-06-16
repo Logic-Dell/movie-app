@@ -2,6 +2,7 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import Search from './components/Search'
 import Spinner from './components/Spinner';
+import MovieCard from './components/MovieCard';
 
 // define the base url for the movie database API
 const API_BASE_URL = 'https://api.themoviedb.org/3/';
@@ -101,7 +102,7 @@ const App = () => {
           <h1 className='text-white'>{search}</h1>
         </header>
 
-        <section>
+        <section className='all-movies'>
           <h2 className='mt-[50px]'>All Movies</h2>
 
           {/* condition to render loading state, error message, or movie list */}
@@ -115,8 +116,7 @@ const App = () => {
             // show list of movies when data is loaded successfully
             <ul>
               {movies.map((movie) => (
-                // display each movie title, using movie ID as the key
-                <p key={movie.id} className='text-white'>{movie.title}</p>
+                <MovieCard key={movie.id} movie={movie} />
               ))}
             </ul>
           )}
