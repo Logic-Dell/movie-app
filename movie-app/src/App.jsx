@@ -33,7 +33,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   // async function to fetch movies
-  const fetchMovies = async () => {
+  const fetchMovies = async (query = '') => {
     // set loading state to true before starting fetch
     setIsLoading(true);
 
@@ -42,7 +42,7 @@ const App = () => {
 
     try {
       // API endpoint with query for popular movies
-      const endpoint = `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
+      const endpoint = query ? `${API_BASE_URL}/search/movie?query=${encodeURIComponent(query)}` : `${API_BASE_URL}/discover/movie?sort_by=popularity.desc`;
 
       // make the API request
       const response = await fetch(endpoint, API_OPTIONS);
@@ -80,11 +80,10 @@ const App = () => {
     }
   };
 
-  // useEffect runs once when the component is mounted
-  // here, it triggers the initial fetch of popular movies
+  // useEffect runs whenever the 'search' state changes, triggering a new fetch based on the current search term
   useEffect(() => {
-    fetchMovies()
-  }, []);
+    fetchMovies(search)
+  }, [search]);
 
   return (
     <main>
@@ -97,9 +96,10 @@ const App = () => {
             Find <span className='text-gradient'>Movies</span> You'll Enjoy Without The Hassle
           </h1>
 
+          {/* Render the search input component with search state props */}
           <Search search={search} setSearch={setSearch} />
 
-          <h1 className='text-white'>{search}</h1>
+          {/* <h1 className='text-white'>{search}</h1> */}
         </header>
 
         <section className='all-movies'>
